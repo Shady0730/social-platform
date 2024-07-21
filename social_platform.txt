@@ -1,0 +1,46 @@
+#SELEZIONARE TUTTI GLI UTENTI CHE HANNO POSTATO ALMENO UN POST
+
+SELECT DISTINCT u.username
+FROM Users u
+JOIN Posts p ON u.id = p.user_id
+JOIN Medias m ON p.id = m.id
+WHERE m.type = 'video';
+
+
+#SELEZIONARE TUTTI I POST SENZA LIKE
+
+SELECT p.*
+FROM Posts p
+LEFT JOIN Likes l ON p.id = l.post_id
+WHERE l.post_id IS NULL;
+
+
+#CONTA IL NUMERO DI LIKE PER OGNI POST
+
+
+SELECT p.id, COUNT(l.post_id) AS numero_like
+FROM Posts p
+LEFT JOIN Likes l ON p.id = l.post_id
+GROUP BY p.id;
+
+
+#ORDINA GLI UTENTI PER NUMERO DI MEDIA CARICATI
+
+
+SELECT u.username, COUNT(m.id) AS numero_media
+FROM Users u
+JOIN Posts p ON u.id = p.user_id
+JOIN Medias m ON p.id = m.id
+GROUP BY u.id
+ORDER BY numero_media DESC;
+
+
+#ORDINA GLI UTENTI PER NUMERO DI LIKE RICEVUTI NEI LORO POST
+
+
+SELECT u.username, COUNT(l.post_id) AS like_totali
+FROM Users u
+JOIN Posts p ON u.id = p.user_id
+JOIN Likes l ON p.id = l.post_id
+GROUP BY u.id
+ORDER BY like_totali DESC;
