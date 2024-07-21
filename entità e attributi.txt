@@ -1,0 +1,26 @@
+User
+
+user_id PK, INT, UNIQUE, NOT NULL
+username VARCHAR(200), UNIQUE, NOT NULL
+email VARCHAR(200), UNIQUE, NOT NULL
+password VARCHAR(200), NOT NULL
+
+Post
+
+post_id PK, INT, UNIQUE, NOT NULL
+user_id FK, INT, NOT NULL
+titolo VARCHAR(200), NOT NULL
+content TEXT, NOT NULL
+
+Tag
+
+tag_id PK, INT, UNIQUE, NOT NULL
+name VARCHAR(200), UNIQUE, NOT NULL
+
+Post_Tag (Associazione tra Post e Tag)
+
+post_id FK, INT, NOT NULL
+tag_id FK, INT, NOT NULL
+PRIMARY KEY (post_id, tag_id)
+
+
